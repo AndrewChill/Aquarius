@@ -1,0 +1,19 @@
+﻿
+body {
+    background-color: rgba(0, 0, 0, 0);
+    margin: 0px auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.trans {
+    transition: opacity 1000ms;
+}
+
+.fadein {
+    opacity: 1 !important;
+}
+
+.fadeout {
+    opacity: 0 !important;
+}
