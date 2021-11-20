@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Aquarius
 {
@@ -27,7 +28,7 @@ namespace Aquarius
 
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
-            OverlayManager.Instance.RefreshLastActiveWebSocket();
+            OverlayManager.Instance.RefreshActiveWebSockets();
         }
 
         private void controlBasic_Changed(object sender, EventArgs e)
@@ -120,7 +121,7 @@ namespace Aquarius
 
         private void linkLabelOpenPanelPreview_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string path = "file:///" + Environment.CurrentDirectory.Replace("\\", "/") + "/Pages/overlay-prediction.html";
+            string path = $"file:///{Environment.CurrentDirectory.Replace("\\", "/")}/Pages/{comboBoxPanelPreview.Text}.html";
             System.Diagnostics.Process.Start(path);
         }
 
@@ -149,6 +150,12 @@ namespace Aquarius
                 comboBoxFontFamily.Items.Clear();
                 foreach (FontFamily ff in FontFamily.Families)
                     comboBoxFontFamily.Items.Add(ff.Name);
+
+                comboBoxPanelPreview.Items.Clear();
+                foreach (string page in Directory.EnumerateFiles("Pages", "*.html", SearchOption.TopDirectoryOnly))
+                    comboBoxPanelPreview.Items.Add(Path.GetFileNameWithoutExtension(page));
+                if (comboBoxPanelPreview.Items.Count > 0)
+                    comboBoxPanelPreview.SelectedIndex = comboBoxPanelPreview.Items.Count - 1;
 
                 UpdateTimer();
 

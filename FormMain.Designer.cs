@@ -71,6 +71,7 @@ namespace Aquarius
             this.label11 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.comboBoxPanelPreview = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWidth)).BeginInit();
@@ -93,7 +94,7 @@ namespace Aquarius
             this.buttonRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRefresh.ForeColor = System.Drawing.Color.White;
-            this.buttonRefresh.Location = new System.Drawing.Point(309, 637);
+            this.buttonRefresh.Location = new System.Drawing.Point(744, 336);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(130, 32);
             this.buttonRefresh.TabIndex = 0;
@@ -109,7 +110,7 @@ namespace Aquarius
             this.buttonApply.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.buttonApply.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonApply.ForeColor = System.Drawing.Color.White;
-            this.buttonApply.Location = new System.Drawing.Point(161, 637);
+            this.buttonApply.Location = new System.Drawing.Point(596, 336);
             this.buttonApply.Name = "buttonApply";
             this.buttonApply.Size = new System.Drawing.Size(130, 32);
             this.buttonApply.TabIndex = 0;
@@ -520,14 +521,14 @@ namespace Aquarius
             // 
             this.linkLabelOpenPanelPreview.AutoSize = true;
             this.linkLabelOpenPanelPreview.LinkColor = System.Drawing.Color.LightSkyBlue;
-            this.linkLabelOpenPanelPreview.Location = new System.Drawing.Point(316, 0);
+            this.linkLabelOpenPanelPreview.Location = new System.Drawing.Point(6, 250);
             this.linkLabelOpenPanelPreview.Name = "linkLabelOpenPanelPreview";
             this.linkLabelOpenPanelPreview.Size = new System.Drawing.Size(106, 20);
             this.linkLabelOpenPanelPreview.TabIndex = 9;
             this.linkLabelOpenPanelPreview.TabStop = true;
             this.linkLabelOpenPanelPreview.Text = "Open Preview";
-            this.toolTip.SetToolTip(this.linkLabelOpenPanelPreview, "Opens the panel in your default web browser. Note that it may be rendered slightl" +
-        "y differently in Obs\' Browser.");
+            this.toolTip.SetToolTip(this.linkLabelOpenPanelPreview, "Opens the selected panel in your default web browser. Note that it may be rendere" +
+        "d slightly differently in Obs\' Browser.");
             this.linkLabelOpenPanelPreview.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelOpenPanelPreview_LinkClicked);
             // 
             // numericUpDownDisplayDuration
@@ -546,6 +547,7 @@ namespace Aquarius
             this.numericUpDownDisplayDuration.Size = new System.Drawing.Size(120, 26);
             this.numericUpDownDisplayDuration.TabIndex = 7;
             this.numericUpDownDisplayDuration.ThousandsSeparator = true;
+            this.toolTip.SetToolTip(this.numericUpDownDisplayDuration, "How long (in milliseconds) to keep the panel visible. 0 means forever.");
             this.numericUpDownDisplayDuration.ValueChanged += new System.EventHandler(this.controlBasic_Changed);
             // 
             // numericUpDownTransitionDuration
@@ -564,6 +566,8 @@ namespace Aquarius
             this.numericUpDownTransitionDuration.Size = new System.Drawing.Size(120, 26);
             this.numericUpDownTransitionDuration.TabIndex = 7;
             this.numericUpDownTransitionDuration.ThousandsSeparator = true;
+            this.toolTip.SetToolTip(this.numericUpDownTransitionDuration, "How long (in milliseconds) it takes to fade the panel in or out. 0 means instant." +
+        "");
             this.numericUpDownTransitionDuration.ValueChanged += new System.EventHandler(this.controlBasic_Changed);
             // 
             // numericUpDownPortNumber
@@ -581,6 +585,8 @@ namespace Aquarius
             this.numericUpDownPortNumber.Name = "numericUpDownPortNumber";
             this.numericUpDownPortNumber.Size = new System.Drawing.Size(120, 26);
             this.numericUpDownPortNumber.TabIndex = 7;
+            this.toolTip.SetToolTip(this.numericUpDownPortNumber, "The port number to run the web socket on. If another program on your machine is u" +
+        "sing the same port number, you\'ll need to change this. Start at 8080 and go up.");
             this.numericUpDownPortNumber.ValueChanged += new System.EventHandler(this.controlOverlay_Changed);
             // 
             // label11
@@ -617,6 +623,7 @@ namespace Aquarius
             this.groupBox2.Controls.Add(this.linkLabelOpenPanelPreview);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.comboBoxPanelPreview);
             this.groupBox2.Controls.Add(this.comboBoxFontFamily);
             this.groupBox2.Controls.Add(this.numericUpDownTransitionDuration);
             this.groupBox2.Controls.Add(this.label6);
@@ -641,12 +648,26 @@ namespace Aquarius
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.White;
-            this.groupBox2.Location = new System.Drawing.Point(12, 219);
+            this.groupBox2.Location = new System.Drawing.Point(446, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(428, 253);
+            this.groupBox2.Size = new System.Drawing.Size(428, 311);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Panel Display";
+            // 
+            // comboBoxPanelPreview
+            // 
+            this.comboBoxPanelPreview.BackColor = System.Drawing.Color.Black;
+            this.comboBoxPanelPreview.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPanelPreview.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.comboBoxPanelPreview.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxPanelPreview.ForeColor = System.Drawing.Color.White;
+            this.comboBoxPanelPreview.FormattingEnabled = true;
+            this.comboBoxPanelPreview.Location = new System.Drawing.Point(6, 273);
+            this.comboBoxPanelPreview.Name = "comboBoxPanelPreview";
+            this.comboBoxPanelPreview.Size = new System.Drawing.Size(268, 28);
+            this.comboBoxPanelPreview.TabIndex = 8;
+            this.toolTip.SetToolTip(this.comboBoxPanelPreview, "This will not affect anything, it\'s just an easy way for you to preview pages.");
             // 
             // groupBox3
             // 
@@ -658,7 +679,7 @@ namespace Aquarius
             this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.Color.White;
-            this.groupBox3.Location = new System.Drawing.Point(12, 478);
+            this.groupBox3.Location = new System.Drawing.Point(12, 215);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(428, 153);
             this.groupBox3.TabIndex = 10;
@@ -675,7 +696,7 @@ namespace Aquarius
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.ClientSize = new System.Drawing.Size(451, 681);
+            this.ClientSize = new System.Drawing.Size(886, 380);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -747,6 +768,7 @@ namespace Aquarius
         private System.Windows.Forms.NumericUpDown numericUpDownRefreshTimerDuration;
         private System.Windows.Forms.Timer timerRefresh;
         private System.Windows.Forms.LinkLabel linkLabelOpenPanelPreview;
+        private System.Windows.Forms.ComboBox comboBoxPanelPreview;
     }
 }
 

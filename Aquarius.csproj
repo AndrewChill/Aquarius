@@ -137,10 +137,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\IDisplayOverlay.cs" />
-    <Compile Include="Classes\DisplayOverlayPrediction.cs" />
+    <Compile Include="Classes\IOverlayInfo.cs" />
+    <Compile Include="Classes\OverlayInfo_Prediction.cs" />
     <Compile Include="Classes\JsonHelper.cs" />
     <Compile Include="Classes\OverlayManager.cs" />
+    <Compile Include="Classes\Prediction.cs" />
     <Compile Include="Classes\TwitchClasses.cs" />
     <Compile Include="Classes\Settings.cs" />
     <Compile Include="Classes\SettingsManager.cs" />
@@ -180,16 +181,34 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Pages\overlay-prediction-right.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pages\overlay-prediction-right.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pages\overlay-prediction-right-template.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pages\overlay-prediction-left.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pages\overlay-prediction-left.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pages\overlay-prediction-left-template.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Pages\overlay.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pages\overlay-prediction.html">
+    <Content Include="Pages\overlay-prediction-summary.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pages\overlay-prediction-template.js">
+    <Content Include="Pages\overlay-prediction-summary-template.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pages\overlay-prediction.css">
+    <Content Include="Pages\overlay-prediction-summary.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

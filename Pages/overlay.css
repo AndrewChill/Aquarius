@@ -6,7 +6,7 @@ body {
     position: relative;
 }
 
-.trans {
+.fader {
     transition: opacity 1000ms;
 }
 
@@ -16,4 +16,28 @@ body {
 
 .fadeout {
     opacity: 0 !important;
+}
+
+#divMain {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-style: solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: opacity 1s;
+}
+
+#pFull {
+    position: absolute;
+    top: calc(50% - height/2);
+    left: 0px;
+    width: 100%;
+    margin: 0px;
+    padding: 10px;
+    text-align: center;
+    white-space: pre-line;
+    transition: opacity 1s;
 }

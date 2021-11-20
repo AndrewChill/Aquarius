@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.IO;
 
 namespace Aquarius
 {
     public static class JsonHelper
     {
+        // The file in the execution directory where settings will be stored.
         private const string FILE_SETTINGS = "settings.json";
 
         public static Settings LoadSettings()

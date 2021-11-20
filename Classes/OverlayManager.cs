@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.WebSockets;
 using System.Reflection;
@@ -28,11 +27,9 @@ namespace Aquarius
         #endregion Instance
 
         private HttpListener _HttpListener;
-        Thread _Thread;
+        private Thread _Thread;
         private List<Tuple<string, WebSocket>> _ActiveWebSockets;
         private const string URL_TEMPLATE = "http://localhost:{PORT_NUMBER}/socket/{PAGE_NAME}/";
-        private const string PAGE_PREDICTION = "overlay-prediction";
-        private string URL_PREDICTION = null;
 
         public OverlayManager()
         {
@@ -40,14 +37,6 @@ namespace Aquarius
 
         public void Initialize()
         {
-            URL_PREDICTION = URL_TEMPLATE.Replace("{PORT_NUMBER}", SettingsManager.Instance.Settings.PortNumber.ToString()).Replace("{PAGE_NAME}", PAGE_PREDICTION);
-
-            FileInfo file = new FileInfo(Path.Combine($"Pages/{PAGE_PREDICTION}-template.js"));
-            if (!file.Exists)
-                throw new Exception("Couldn't find prediction page template.");
-            else
-                File.WriteAllText(file.FullName.Replace("-template.js", ".js"), File.ReadAllText(file.FullName).Replace("{PORT_NUMBER}", SettingsManager.Instance.Settings.PortNumber.ToString()));
-
             _ActiveWebSockets = new List<Tuple<string, WebSocket>>();
 
             if (_HttpListener != null && _HttpListener.IsListening)
@@ -56,10 +45,26 @@ namespace Aquarius
                 _HttpListener.Close();
             }
 
+            _HttpListener = new HttpListener();
+
+            string[] templatePaths = Directory.GetFiles("Pages", "*-template.js", SearchOption.TopDirectoryOnly);
+            foreach(string templatePath in templatePaths)
+            {
+                FileInfo template = new FileInfo(templatePath);
+                FileInfo newFile = new FileInfo(template.FullName.Replace("-template.js", ".js"));
+
+                if (!template.Exists)
+                    continue;
+
+                File.WriteAllText(newFile.FullName, File.ReadAllText(template.FullName).Replace("{PORT_NUMBER}", SettingsManager.Instance.Settings.PortNumber.ToString()));
+                _HttpListener.Prefixes.Add(
+                    URL_TEMPLATE
+                    .Replace("{PORT_NUMBER}", SettingsManager.Instance.Settings.PortNumber.ToString())
+                    .Replace("{PAGE_NAME}", Path.GetFileNameWithoutExtension(newFile.Name)));
+            }
+
             try
             {
-                _HttpListener = new HttpListener();
-                _HttpListener.Prefixes.Add(URL_PREDICTION);
                 _HttpListener.Start();
             }
             catch (Exception ex)
@@ -112,21 +117,17 @@ namespace Aquarius
                 RefreshWebSocket(webSocket);
         }
 
-        public void RefreshLastActiveWebSocket()
-        {
-            if (_ActiveWebSockets != null && _ActiveWebSockets.Count > 0)
-                RefreshWebSocket(_ActiveWebSockets.Last());
-        }
-
         private void RefreshWebSocket(Tuple<string, WebSocket> webSocket)
         {
-            IDisplayOverlay displayOverlay;
-            if (webSocket.Item1 == URL_PREDICTION && _ActiveWebSockets.Contains(webSocket))
-                displayOverlay = new DisplayOverlayPrediction();
-            else
+            IOverlayInfo displayOverlay;
+
+            if (!_ActiveWebSockets.Contains(webSocket))
                 return;
 
-            string value = "{DISPLAY_OVERLAY}";
+            // If we had different kinds of DisplayOverlays, we would have to figure out which one to generate based on which web socket we're sending to here.
+            displayOverlay = new DisplayOverlay_Prediction();
+
+            string value = "{OVERLAY_INFO}";
             value += JsonConvert.SerializeObject(displayOverlay);
             byte[] segmentsBytes = Encoding.UTF8.GetBytes(value);
 
