@@ -68,10 +68,10 @@ namespace Aquarius
             this.numericUpDownDisplayDuration = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownTransitionDuration = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownPortNumber = new System.Windows.Forms.NumericUpDown();
+            this.comboBoxPanelPreview = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.comboBoxPanelPreview = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWidth)).BeginInit();
@@ -586,8 +586,22 @@ namespace Aquarius
             this.numericUpDownPortNumber.Size = new System.Drawing.Size(120, 26);
             this.numericUpDownPortNumber.TabIndex = 7;
             this.toolTip.SetToolTip(this.numericUpDownPortNumber, "The port number to run the web socket on. If another program on your machine is u" +
-        "sing the same port number, you\'ll need to change this. Start at 8080 and go up.");
+        "sing the same port number, you\'ll need to change this. Start at 8081 and go up.");
             this.numericUpDownPortNumber.ValueChanged += new System.EventHandler(this.controlOverlay_Changed);
+            // 
+            // comboBoxPanelPreview
+            // 
+            this.comboBoxPanelPreview.BackColor = System.Drawing.Color.Black;
+            this.comboBoxPanelPreview.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPanelPreview.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.comboBoxPanelPreview.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxPanelPreview.ForeColor = System.Drawing.Color.White;
+            this.comboBoxPanelPreview.FormattingEnabled = true;
+            this.comboBoxPanelPreview.Location = new System.Drawing.Point(6, 273);
+            this.comboBoxPanelPreview.Name = "comboBoxPanelPreview";
+            this.comboBoxPanelPreview.Size = new System.Drawing.Size(268, 28);
+            this.comboBoxPanelPreview.TabIndex = 8;
+            this.toolTip.SetToolTip(this.comboBoxPanelPreview, "This will not affect anything, it\'s just an easy way for you to preview pages.");
             // 
             // label11
             // 
@@ -654,20 +668,6 @@ namespace Aquarius
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Panel Display";
-            // 
-            // comboBoxPanelPreview
-            // 
-            this.comboBoxPanelPreview.BackColor = System.Drawing.Color.Black;
-            this.comboBoxPanelPreview.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxPanelPreview.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.comboBoxPanelPreview.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxPanelPreview.ForeColor = System.Drawing.Color.White;
-            this.comboBoxPanelPreview.FormattingEnabled = true;
-            this.comboBoxPanelPreview.Location = new System.Drawing.Point(6, 273);
-            this.comboBoxPanelPreview.Name = "comboBoxPanelPreview";
-            this.comboBoxPanelPreview.Size = new System.Drawing.Size(268, 28);
-            this.comboBoxPanelPreview.TabIndex = 8;
-            this.toolTip.SetToolTip(this.comboBoxPanelPreview, "This will not affect anything, it\'s just an easy way for you to preview pages.");
             // 
             // groupBox3
             // 

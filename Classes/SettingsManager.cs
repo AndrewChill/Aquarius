@@ -33,6 +33,6 @@
             _Settings = settings;
         }
 
-        public Settings Settings { get { return _Settings; } }
+        public Settings Settings { get { return _Settings == null ? new Settings() : _Settings; } }
     }
 }

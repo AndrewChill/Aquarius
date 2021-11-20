@@ -32,8 +32,10 @@ namespace Aquarius
         public void Initialize()
         {
             _TwitchChannel = SettingsManager.Instance.Settings.TwitchChannel;
-            _BroadcasterId = GetBroadcasterId();
+            if (string.IsNullOrWhiteSpace(_TwitchChannel))
+                return;
 
+            _BroadcasterId = GetBroadcasterId();
             if (_BroadcasterId == null)
                 throw new Exception("Failed to retrieve BroadcasterId. Check your Twitch Integration settings.");
 
