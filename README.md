@@ -31,3 +31,12 @@ This application uses Twitch's API to retrieve prediction information for your c
    - **Height** - The same value that you specified in Aquarius.
    - **Refresh browser when scene becomes active** - Recommended true.
 ![image](https://user-images.githubusercontent.com/5312834/142743868-18fe456e-930c-48a1-a423-33b511d7e3fa.png)
+
+
+### Upgrading to a newer version
+
+1. Click 'Releases' on the right side of this screen.
+2. In the most recent release, expand the 'Assets' section and download the zip file.
+3. Extract the zip file.
+4. Copy and overwrite 'settings.json' from the old Aquarius version folder to your new Aquarius version folder.
+5. If you made any custom html/css/js files in the Pages directory, copy them over as well.
