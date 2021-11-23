@@ -65,6 +65,11 @@ function displayOverlayInfo(overlayInfo) {
     divMain.style.borderWidth = overlayInfo.BorderWidth + "px";
     divMain.style.borderColor = overlayInfo.BorderColor;
 
+    // You can make use of any field in the Prediction.cs object here.
+    // We just use the Summary field because it was easier for me to build the text string in C#.
+    console.log("Here's what the Prediction object looks like:\n");
+    console.log(overlayInfo.Prediction);
+
     pFull.innerHTML = overlayInfo.Prediction.Summary;
 
     divFader.classList.remove('fadeout');

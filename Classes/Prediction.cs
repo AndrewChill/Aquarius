@@ -19,6 +19,26 @@ namespace Aquarius
         public string ended_at { get; set; }
         public string locked_at { get; set; }
 
+        public const string FIELD_POINTS_TOTAL = "{POINTS_TOTAL}";
+        public const string FIELD_POINTS_A = "{POINTS_A}";
+        public const string FIELD_POINTS_B = "{POINTS_B}";
+        public const string FIELD_NAME_A = "{NAME_A}";
+        public const string FIELD_NAME_B = "{NAME_B}";
+        public const string FIELD_RETURN_A = "{RETURN_A}";
+        public const string FIELD_RETURN_B = "{RETURN_B}";
+        public const string FIELD_TOP_BETTERS_A = "{TOP_BETTERS_A}";
+        public const string FIELD_TOP_BETTERS_B = "{TOP_BETTERS_B}";
+
+        private string TEMPLATE_SUMMARY_ACTIVE = $"Bet active, {FIELD_POINTS_TOTAL} wagered\n\n{FIELD_POINTS_A} on {FIELD_NAME_A}, {FIELD_RETURN_A}% return\nBiggest {FIELD_NAME_A} believers{FIELD_TOP_BETTERS_A}\n\n{FIELD_POINTS_B} on {FIELD_NAME_B}, {FIELD_RETURN_B}% return\nBiggest {FIELD_NAME_B} believers{FIELD_TOP_BETTERS_B}";
+        private string TEMPLATE_SUMMARY_LOCKED = $"Bet locked, {FIELD_POINTS_TOTAL} wagered\n\n{FIELD_POINTS_A} on {FIELD_NAME_A}, {FIELD_RETURN_A}% return\nBiggest {FIELD_NAME_A} believers{FIELD_TOP_BETTERS_A}\n\n{FIELD_POINTS_B} on {FIELD_NAME_B}, {FIELD_RETURN_B}% return\nBiggest {FIELD_NAME_B} believers{FIELD_TOP_BETTERS_B}";
+        private string TEMPLATE_SUMMARY_CANCELED = $"Bet cancelled, points refunded";
+        private string TEMPLATE_SUMMARY_RESOLVED = $"Bet resolved, {FIELD_POINTS_TOTAL} wagered\n\n{FIELD_POINTS_A} on {FIELD_NAME_A}, {FIELD_RETURN_A}% return\nBiggest {FIELD_NAME_A} believers{FIELD_TOP_BETTERS_A}\n\n{FIELD_POINTS_B} on {FIELD_NAME_B}\nBiggest {FIELD_NAME_A} doubters{FIELD_TOP_BETTERS_B}";
+
+        private string TEMPLATE_SINGLE_ACTIVE = $"Total Wager\n{FIELD_POINTS_A}\n\nPayout\n{FIELD_RETURN_A}\n\nBiggest believers{FIELD_TOP_BETTERS_A}";
+        private string TEMPLATE_SINGLE_LOCKED = $"Total Wager\n{FIELD_POINTS_A}\n\nPayout\n{FIELD_RETURN_A}\n\nBiggest believers{FIELD_TOP_BETTERS_A}";
+        private string TEMPLATE_SINGLE_CANCELED = $"Bet cancelled, points refunded";
+        private string TEMPLATE_SINGLE_RESOLVED = $"Total Wager\n{FIELD_POINTS_A}\n\nPayout\n{FIELD_RETURN_A}\n\nBiggest believers{FIELD_TOP_BETTERS_A}";
+
         public string Summary
         {
             get
@@ -26,75 +46,26 @@ namespace Aquarius
                 try
                 {
                     string value = "";
-                    if (string.IsNullOrWhiteSpace(winning_outcome_id))
+
+                    if (status == "ACTIVE")
+                        value = FillTemplateFields(TEMPLATE_SUMMARY_ACTIVE, outcomes[0], outcomes[1]);
+                    else if (status == "LOCKED")
+                        value = FillTemplateFields(TEMPLATE_SUMMARY_LOCKED, outcomes[0], outcomes[1]);
+                    else if (status == "CANCELED")
+                        value = FillTemplateFields(TEMPLATE_SUMMARY_CANCELED, outcomes[0], outcomes[1]);
+                    else if (status == "RESOLVED")
                     {
-                        Outcome outcomePlayer1 = outcomes[0];
-                        Outcome outcomePlayer2 = outcomes[1];
-
-                        string namePlayer1 = outcomePlayer1.title.Substring(11);
-                        string namePlayer2 = outcomePlayer2.title.Substring(11);
-                        int totalPoints = outcomePlayer1.channel_points + outcomePlayer2.channel_points;
-
-                        value += string.Format("{0:n0}", totalPoints) + " wagered\n\n";
-
-                        double ratioPlayer1Wins = (double)outcomePlayer2.channel_points / outcomePlayer1.channel_points;
-                        double ratioPlayer2Wins = (double)outcomePlayer1.channel_points / outcomePlayer2.channel_points;
-
-                        value += string.Format("{0:n0}", outcomePlayer1.channel_points) + $" on {namePlayer1}, " + string.Format("+{0:n0}", ratioPlayer1Wins * 100) + "% return\n";
-
-                        Dictionary<string, int> supportersPlayer1 = new Dictionary<string, int>();
-                        foreach (TopPredictor supporter in outcomePlayer1.top_predictors.OrderByDescending(q => q.channel_points_used).Take(3))
-                            supportersPlayer1.Add(supporter.user_name, supporter.channel_points_used);
-                        value += $"Biggest {namePlayer1} believers";
-                        foreach (KeyValuePair<string, int> supporter in supportersPlayer1)
-                            value += "\n" + supporter.Key + ": " + string.Format("{0:n0}", supporter.Value);
-
-                        value += string.Format("\n\n{0:n0}", outcomePlayer2.channel_points) + $" on {namePlayer2}, " + string.Format("+{0:n0}", ratioPlayer2Wins * 100) + "% return\n";
-
-                        Dictionary<string, int> supportersPlayer2 = new Dictionary<string, int>();
-                        foreach (TopPredictor supporter in outcomePlayer2.top_predictors.OrderByDescending(q => q.channel_points_used).Take(3))
-                            supportersPlayer2.Add(supporter.user_name, supporter.channel_points_used);
-                        value += $"Biggest {namePlayer2} believers";
-                        foreach (KeyValuePair<string, int> supporter in supportersPlayer2)
-                            value += "\n" + supporter.Key + ": " + string.Format("{0:n0}", supporter.Value);
+                        if (winning_outcome_id == outcomes[0].id)
+                            value = FillTemplateFields(TEMPLATE_SUMMARY_RESOLVED, outcomes[0], outcomes[1]);
+                        else
+                            value = FillTemplateFields(TEMPLATE_SUMMARY_RESOLVED, outcomes[1], outcomes[0]);
                     }
-                    else
-                    {
-                        Outcome winningOutcome = outcomes.Single(q => q.id == winning_outcome_id);
-                        Outcome losingOutcome = outcomes.Single(q => q.id != winning_outcome_id);
 
-                        if (winningOutcome == null || losingOutcome == null || winningOutcome.channel_points == 0 || losingOutcome.channel_points == 0)
-                            return "";
-
-                        string nameWinner = winningOutcome.title.Substring(11);
-                        string nameLoser = losingOutcome.title.Substring(11);
-
-                        double ratio = (double)losingOutcome.channel_points / winningOutcome.channel_points;
-                        int totalPoints = winningOutcome.channel_points + losingOutcome.channel_points;
-
-                        Dictionary<string, int> winners = new Dictionary<string, int>();
-                        foreach (TopPredictor winner in winningOutcome.top_predictors.Take(3))
-                            winners.Add(winner.user_name, (int)(winner.channel_points_used * ratio));
-
-                        Dictionary<string, int> losers = new Dictionary<string, int>();
-                        foreach (TopPredictor loser in losingOutcome.top_predictors.Take(3))
-                            losers.Add(loser.user_name, loser.channel_points_used);
-
-                        value += string.Format("{0:n0}", totalPoints) + " wagered\n";
-                        value += string.Format("+{0:n0}", ratio * 100) + $"% return on {nameWinner}\n";
-                        value += $"\nBiggest {nameWinner} believers";
-                        foreach (KeyValuePair<string, int> winner in winners)
-                            value += "\n" + winner.Key + ": +" + string.Format("{0:n0}", winner.Value);
-
-                        value += $"\n\nBiggest {nameWinner} doubters";
-                        foreach (KeyValuePair<string, int> loser in losers)
-                            value += "\n" + loser.Key + ": -" + string.Format("{0:n0}", loser.Value);
-                    }
                     return value;
                 }
                 catch (Exception)
                 {
-                    return "";
+                    return "Failed to build prediction summary.";
                 }
             }
         }
@@ -103,7 +74,25 @@ namespace Aquarius
         {
             get
             {
-                return GetSingleOutcomeSummary(outcomes[0], outcomes[1]);
+                try
+                {
+                    string value = "";
+
+                    if (status == "ACTIVE")
+                        value = FillTemplateFields(TEMPLATE_SINGLE_ACTIVE, outcomes[0], outcomes[1]);
+                    else if (status == "LOCKED")
+                        value = FillTemplateFields(TEMPLATE_SINGLE_LOCKED, outcomes[0], outcomes[1]);
+                    else if (status == "CANCELED")
+                        value = FillTemplateFields(TEMPLATE_SINGLE_CANCELED, outcomes[0], outcomes[1]);
+                    else if (status == "RESOLVED")
+                        value = FillTemplateFields(TEMPLATE_SINGLE_RESOLVED, outcomes[0], outcomes[1]);
+
+                    return value;
+                }
+                catch (Exception)
+                {
+                    return "Failed to build prediction summary.";
+                }
             }
         }
 
@@ -111,62 +100,93 @@ namespace Aquarius
         {
             get
             {
-                return GetSingleOutcomeSummary(outcomes[1], outcomes[0]);
+                try
+                {
+                    string value = "";
+
+                    if (status == "ACTIVE")
+                        value = FillTemplateFields(TEMPLATE_SINGLE_ACTIVE, outcomes[1], outcomes[0]);
+                    else if (status == "LOCKED")
+                        value = FillTemplateFields(TEMPLATE_SINGLE_LOCKED, outcomes[1], outcomes[0]);
+                    else if (status == "CANCELLED")
+                        value = FillTemplateFields(TEMPLATE_SINGLE_CANCELED, outcomes[1], outcomes[0]);
+                    else if (status == "RESOLVED")
+                        value = FillTemplateFields(TEMPLATE_SINGLE_RESOLVED, outcomes[1], outcomes[0]);
+
+                    return value;
+                }
+                catch (Exception)
+                {
+                    return "Failed to build prediction summary.";
+                }
             }
         }
 
-        private string GetSingleOutcomeSummary(Outcome main, Outcome compare)
+        private string FillTemplateFields(string value, Outcome outcomeA, Outcome outcomeB)
         {
-            try
+            if (value.Contains(FIELD_POINTS_TOTAL))
+                value = value.Replace(FIELD_POINTS_TOTAL, string.Format("{0:n0}", outcomeA.channel_points + outcomeB.channel_points));
+
+            if (value.Contains(FIELD_POINTS_A))
+                value = value.Replace(FIELD_POINTS_A, string.Format("{0:n0}", outcomeA.channel_points));
+
+            if (value.Contains(FIELD_POINTS_B))
+                value = value.Replace(FIELD_POINTS_B, string.Format("{0:n0}", outcomeB.channel_points));
+
+            if (value.Contains(FIELD_NAME_A))
+                value = value.Replace(FIELD_NAME_A, string.Format("{0:n0}", outcomeA.title));
+
+            if (value.Contains(FIELD_NAME_B))
+                value = value.Replace(FIELD_NAME_B, string.Format("{0:n0}", outcomeB.title));
+
+            if (value.Contains(FIELD_RETURN_A) || value.Contains(FIELD_RETURN_B))
             {
-                string value = "";
-
-                if (string.IsNullOrWhiteSpace(winning_outcome_id))
+                if (outcomeA.channel_points > 0 && outcomeB.channel_points > 0)
                 {
-                    int totalPoints = main.channel_points + compare.channel_points;
+                    double ratioWinnerA = (double)outcomeA.channel_points / outcomeA.channel_points;
+                    double ratioWinnerB = (double)outcomeB.channel_points / outcomeB.channel_points;
 
-                    value += string.Format("{0:n0}", main.channel_points) + " wagered\n\n";
-
-                    double ratioLeftWins = (double)compare.channel_points / main.channel_points;
-                    double ratioRightWins = (double)main.channel_points / compare.channel_points;
-
-                    value += string.Format("+{0:n0}", ratioLeftWins * 100) + "% return\n\n";
-
-                    value += $"Biggest believers";
-                    foreach (TopPredictor supporter in main.top_predictors.OrderByDescending(q => q.channel_points_used).Take(3))
-                        value += "\n" + supporter.user_name + ": " + string.Format("{0:n0}", supporter.channel_points_used);
+                    value = value.Replace(FIELD_RETURN_A, string.Format("+{0:n0}", ratioWinnerA * 100));
+                    value = value.Replace(FIELD_RETURN_B, string.Format("+{0:n0}", ratioWinnerB * 100));
                 }
                 else
                 {
-                    if (winning_outcome_id == main.id)
-                    {
-                        value += string.Format("{0:n0}", main.channel_points) + " won\n\n";
-
-                        double ratioLeftWins = (double)compare.channel_points / main.channel_points;
-                        double ratioRightWins = (double)main.channel_points / compare.channel_points;
-
-                        value += string.Format("+{0:n0}", ratioLeftWins * 100) + "% return\n\n";
-
-                        value += $"Biggest believers";
-                        foreach (TopPredictor supporter in main.top_predictors.OrderByDescending(q => q.channel_points_used).Take(3))
-                            value += "\n" + supporter.user_name + ": " + string.Format("{0:n0}", supporter.channel_points_used);
-                    }
-                    else
-                    {
-                        value += string.Format("{0:n0}", main.channel_points) + " lost\n\n";
-
-                        value += $"Biggest believers";
-                        foreach (TopPredictor supporter in main.top_predictors.OrderByDescending(q => q.channel_points_used).Take(3))
-                            value += "\n" + supporter.user_name + ": " + string.Format("{0:n0}", supporter.channel_points_used);
-                    }
+                    value = value.Replace(FIELD_RETURN_A, "0");
+                    value = value.Replace(FIELD_RETURN_B, "0");
                 }
+            }
 
-                return value;
-            }
-            catch (Exception)
+            if (value.Contains(FIELD_TOP_BETTERS_A))
             {
-                return "";
+                if (outcomeA.top_predictors != null)
+                {
+                    string topBetters = "";
+                    foreach (TopPredictor supporter in outcomeA.top_predictors.OrderByDescending(q => q.channel_points_used).Take(3))
+                        topBetters += "\n" + supporter.user_name + ": " + string.Format("{0:n0}", supporter.channel_points_used);
+                    value = value.Replace(FIELD_TOP_BETTERS_A, topBetters);
+                }
+                else
+                {
+                    value = value.Replace(FIELD_TOP_BETTERS_A, "\n(none)");
+                }
             }
+
+            if (value.Contains(FIELD_TOP_BETTERS_B))
+            {
+                if (outcomeB.top_predictors != null)
+                {
+                    string topBetters = "";
+                    foreach (TopPredictor supporter in outcomeB.top_predictors.OrderByDescending(q => q.channel_points_used).Take(3))
+                        topBetters += "\n" + supporter.user_name + ": " + string.Format("{0:n0}", supporter.channel_points_used);
+                    value = value.Replace(FIELD_TOP_BETTERS_B, topBetters);
+                }
+                else
+                {
+                    value = value.Replace(FIELD_TOP_BETTERS_B, "\n(none)");
+                }
+            }
+
+            return value;
         }
     }
 }
