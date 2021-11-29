@@ -24,14 +24,20 @@
 
         public void LoadSettings()
         {
-            _Settings = JsonHelper.LoadSettings();
+            _Settings = JsonHelper.Parse<Settings>(FILE_SETTINGS);
+
+            if (_Settings == null)
+                SaveSettings(new Settings());
         }
 
         public void SaveSettings(Settings settings)
         {
-            JsonHelper.SaveSettings(settings);
+            JsonHelper.Save(settings, FILE_SETTINGS);
             _Settings = settings;
         }
+
+        // The file in the execution directory where settings will be stored.
+        private const string FILE_SETTINGS = "settings.json";
 
         public Settings Settings { get { return _Settings == null ? new Settings() : _Settings; } }
     }

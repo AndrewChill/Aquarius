@@ -4,7 +4,7 @@
 // a template, and when running the app, this template file is copied to 'overlay-prediction.js'
 // and the {PORT_NUMBER} value is replaced with the port number specified by the user.
 
-var wsUri = "ws://localhost:{PORT_NUMBER}/socket/overlay-prediction-summary/";
+var wsUri = "ws://localhost:{PORT_NUMBER}/socket/overlay-prediction-double/";
 
 function init() {
     websocket = new WebSocket(wsUri);
@@ -66,11 +66,11 @@ function displayOverlayInfo(overlayInfo) {
     divMain.style.borderColor = overlayInfo.BorderColor;
 
     // You can make use of any field in the Prediction.cs object here.
-    // We just use the Summary field because it was easier for me to build the text string in C#.
+    // We just use the SummaryDouble field because it was easier for me to build the text string in C#.
     console.log("Here's what the Prediction object looks like:\n");
     console.log(overlayInfo.Prediction);
 
-    pFull.innerHTML = overlayInfo.Prediction.Summary;
+    pFull.innerHTML = overlayInfo.Prediction.SummaryDouble;
 
     divFader.classList.remove('fadeout');
     divFader.classList.add('fadein');

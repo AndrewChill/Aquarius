@@ -5,18 +5,14 @@ namespace Aquarius
 {
     public static class JsonHelper
     {
-        // The file in the execution directory where settings will be stored.
-        private const string FILE_SETTINGS = "settings.json";
-
-        public static Settings LoadSettings()
+        public static T Parse<T>(string path)
         {
-            Settings settings = null;
+            T value = default(T);
 
-            string file = Path.Combine(FILE_SETTINGS);
-            if (!File.Exists(file))
-                return settings;
+            if (!File.Exists(path))
+                return value;
 
-            JsonTextReader reader = new JsonTextReader(new StreamReader(file));
+            JsonTextReader reader = new JsonTextReader(new StreamReader(path));
             reader.SupportMultipleContent = true;
 
             JsonSerializer serializer = new JsonSerializer();
@@ -25,19 +21,19 @@ namespace Aquarius
                 if (!reader.Read())
                     break;
 
-                settings = serializer.Deserialize<Settings>(reader);
+                value = serializer.Deserialize<T>(reader);
             }
             reader.Close();
 
-            return settings;
+            return value;
         }
 
-        public static void SaveSettings(Settings settings)
+        public static void Save<T>(T value, string path)
         {
             JsonSerializer serializer = new JsonSerializer();
             serializer.Formatting = Formatting.Indented;
-            using (StreamWriter file = File.CreateText(Path.Combine(FILE_SETTINGS)))
-                serializer.Serialize(file, settings);
+            using (StreamWriter file = File.CreateText(Path.Combine(path)))
+                serializer.Serialize(file, value);
         }
     }
 }

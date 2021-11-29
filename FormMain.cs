@@ -146,6 +146,16 @@ namespace Aquarius
                 checkBoxRefreshOnLoad.Checked = SettingsManager.Instance.Settings.RefreshOnLoad;
                 checkBoxRefreshOnTimer.Checked = SettingsManager.Instance.Settings.RefreshOnTimer;
                 numericUpDownRefreshTimerDuration.Value = SettingsManager.Instance.Settings.RefreshTimerDuration;
+                numericUpDownBettorsToDisplay.Value = SettingsManager.Instance.Settings.BettorsToDisplay;
+
+                textBoxTemplateDoubleActive.Text = SettingsManager.Instance.Settings.TemplateDoubleActive;
+                textBoxTemplateDoubleLocked.Text = SettingsManager.Instance.Settings.TemplateDoubleLocked;
+                textBoxTemplateDoubleCanceled.Text = SettingsManager.Instance.Settings.TemplateDoubleCanceled;
+                textBoxTemplateDoubleResolved.Text = SettingsManager.Instance.Settings.TemplateDoubleResolved;
+                textBoxTemplateSingleActive.Text = SettingsManager.Instance.Settings.TemplateSingleActive;
+                textBoxTemplateSingleLocked.Text = SettingsManager.Instance.Settings.TemplateSingleLocked;
+                textBoxTemplateSingleCanceled.Text = SettingsManager.Instance.Settings.TemplateSingleCanceled;
+                textBoxTemplateSingleResolved.Text = SettingsManager.Instance.Settings.TemplateSingleResolved;
 
                 comboBoxFontFamily.Items.Clear();
                 foreach (FontFamily ff in FontFamily.Families)
@@ -195,6 +205,17 @@ namespace Aquarius
                 settings.RefreshOnLoad = checkBoxRefreshOnLoad.Checked;
                 settings.RefreshOnTimer = checkBoxRefreshOnTimer.Checked;
                 settings.RefreshTimerDuration = (int)numericUpDownRefreshTimerDuration.Value;
+                settings.BettorsToDisplay = (int)numericUpDownBettorsToDisplay.Value;
+
+                settings.TemplateDoubleActive = textBoxTemplateDoubleActive.Text;
+                settings.TemplateDoubleLocked = textBoxTemplateDoubleLocked.Text;
+                settings.TemplateDoubleCanceled = textBoxTemplateDoubleCanceled.Text;
+                settings.TemplateDoubleResolved = textBoxTemplateDoubleResolved.Text;
+                settings.TemplateSingleActive = textBoxTemplateSingleActive.Text;
+                settings.TemplateSingleLocked = textBoxTemplateSingleLocked.Text;
+                settings.TemplateSingleCanceled = textBoxTemplateSingleCanceled.Text;
+                settings.TemplateSingleResolved = textBoxTemplateSingleResolved.Text;
+
                 SettingsManager.Instance.SaveSettings(settings);
 
                 if (_ReInitializeTwitch)

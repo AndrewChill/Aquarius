@@ -35,9 +35,12 @@ body {
     top: calc(50% - height/2);
     left: 0px;
     width: calc(100% - 20px);
-    margin: 0px;
     padding: 10px;
     text-align: center;
     white-space: pre-line;
     transition: opacity 1s;
+}
+
+p {
+    margin: 0px;
 }

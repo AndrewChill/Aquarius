@@ -142,6 +142,7 @@
     <Compile Include="Classes\JsonHelper.cs" />
     <Compile Include="Classes\OverlayManager.cs" />
     <Compile Include="Classes\Prediction.cs" />
+    <Compile Include="Classes\TemplateFields.cs" />
     <Compile Include="Classes\TwitchClasses.cs" />
     <Compile Include="Classes\Settings.cs" />
     <Compile Include="Classes\SettingsManager.cs" />
@@ -202,13 +203,13 @@
     <Content Include="Pages\overlay.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pages\overlay-prediction-summary.html">
+    <Content Include="Pages\overlay-prediction-double.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pages\overlay-prediction-summary-template.js">
+    <Content Include="Pages\overlay-prediction-double-template.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pages\overlay-prediction-summary.css">
+    <Content Include="Pages\overlay-prediction-double.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

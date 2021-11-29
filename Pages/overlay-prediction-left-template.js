@@ -65,7 +65,7 @@ function displayOverlayInfo(overlayInfo) {
     divMain.style.borderWidth = overlayInfo.BorderWidth + "px";
     divMain.style.borderColor = overlayInfo.BorderColor;
 
-    pFull.innerHTML = overlayInfo.Prediction.Left;
+    pFull.innerHTML = overlayInfo.Prediction.SummaryLeft;
 
     divFader.classList.remove('fadeout');
     divFader.classList.add('fadein');
