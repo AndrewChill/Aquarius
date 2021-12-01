@@ -123,16 +123,16 @@ namespace Aquarius
             {
                 if (outcomeA.channel_points > 0 && outcomeB.channel_points > 0)
                 {
-                    double ratioWinnerA = (double)outcomeA.channel_points / outcomeA.channel_points;
-                    double ratioWinnerB = (double)outcomeB.channel_points / outcomeB.channel_points;
+                    double ratioWinnerA = (double)outcomeB.channel_points / outcomeA.channel_points;
+                    double ratioWinnerB = (double)outcomeA.channel_points / outcomeB.channel_points;
 
                     value = value.Replace(TemplateFields.FIELD_RETURN_A, string.Format("+{0:n0}", ratioWinnerA * 100));
                     value = value.Replace(TemplateFields.FIELD_RETURN_B, string.Format("+{0:n0}", ratioWinnerB * 100));
                 }
                 else
                 {
-                    value = value.Replace(TemplateFields.FIELD_RETURN_A, "0");
-                    value = value.Replace(TemplateFields.FIELD_RETURN_B, "0");
+                    value = value.Replace(TemplateFields.FIELD_RETURN_A, "(none)");
+                    value = value.Replace(TemplateFields.FIELD_RETURN_B, "(none)");
                 }
             }
 

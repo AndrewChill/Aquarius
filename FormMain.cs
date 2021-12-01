@@ -165,7 +165,7 @@ namespace Aquarius
                 foreach (string page in Directory.EnumerateFiles("Pages", "*.html", SearchOption.TopDirectoryOnly))
                     comboBoxPanelPreview.Items.Add(Path.GetFileNameWithoutExtension(page));
                 if (comboBoxPanelPreview.Items.Count > 0)
-                    comboBoxPanelPreview.SelectedIndex = comboBoxPanelPreview.Items.Count - 1;
+                    comboBoxPanelPreview.SelectedIndex = 0;
 
                 UpdateTimer();
 

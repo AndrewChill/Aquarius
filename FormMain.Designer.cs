@@ -72,9 +72,16 @@ namespace Aquarius
             this.textBoxTemplateDoubleActive = new System.Windows.Forms.TextBox();
             this.textBoxTemplateDoubleLocked = new System.Windows.Forms.TextBox();
             this.textBoxTemplateDoubleCanceled = new System.Windows.Forms.TextBox();
+            this.textBoxTemplateSingleActive = new System.Windows.Forms.TextBox();
+            this.textBoxTemplateSingleResolved = new System.Windows.Forms.TextBox();
+            this.textBoxTemplateSingleLocked = new System.Windows.Forms.TextBox();
+            this.textBoxTemplateDoubleResolved = new System.Windows.Forms.TextBox();
+            this.textBoxTemplateSingleCanceled = new System.Windows.Forms.TextBox();
+            this.numericUpDownBettorsToDisplay = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label23 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -85,14 +92,7 @@ namespace Aquarius
             this.label16 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.textBoxTemplateSingleActive = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.textBoxTemplateSingleResolved = new System.Windows.Forms.TextBox();
-            this.textBoxTemplateSingleLocked = new System.Windows.Forms.TextBox();
-            this.textBoxTemplateDoubleResolved = new System.Windows.Forms.TextBox();
-            this.textBoxTemplateSingleCanceled = new System.Windows.Forms.TextBox();
-            this.numericUpDownBettorsToDisplay = new System.Windows.Forms.NumericUpDown();
-            this.label23 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFontSize)).BeginInit();
@@ -101,11 +101,11 @@ namespace Aquarius
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDisplayDuration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTransitionDuration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPortNumber)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBettorsToDisplay)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBettorsToDisplay)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonRefresh
@@ -118,7 +118,7 @@ namespace Aquarius
             this.buttonRefresh.Location = new System.Drawing.Point(744, 643);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(130, 32);
-            this.buttonRefresh.TabIndex = 0;
+            this.buttonRefresh.TabIndex = 36;
             this.buttonRefresh.Text = "Refresh Panel";
             this.buttonRefresh.UseVisualStyleBackColor = false;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
@@ -134,7 +134,7 @@ namespace Aquarius
             this.buttonApply.Location = new System.Drawing.Point(596, 643);
             this.buttonApply.Name = "buttonApply";
             this.buttonApply.Size = new System.Drawing.Size(130, 32);
-            this.buttonApply.TabIndex = 0;
+            this.buttonApply.TabIndex = 35;
             this.buttonApply.Text = "Save Changes";
             this.buttonApply.UseVisualStyleBackColor = false;
             this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
@@ -169,7 +169,7 @@ namespace Aquarius
             this.textBoxTwitchChannel.Location = new System.Drawing.Point(6, 49);
             this.textBoxTwitchChannel.Name = "textBoxTwitchChannel";
             this.textBoxTwitchChannel.Size = new System.Drawing.Size(416, 26);
-            this.textBoxTwitchChannel.TabIndex = 2;
+            this.textBoxTwitchChannel.TabIndex = 1;
             this.toolTip.SetToolTip(this.textBoxTwitchChannel, "The name of the Twitch channel to pull predictions from.");
             this.textBoxTwitchChannel.TextChanged += new System.EventHandler(this.controlTwitch_Changed);
             // 
@@ -231,7 +231,7 @@ namespace Aquarius
             0});
             this.numericUpDownWidth.Name = "numericUpDownWidth";
             this.numericUpDownWidth.Size = new System.Drawing.Size(120, 26);
-            this.numericUpDownWidth.TabIndex = 3;
+            this.numericUpDownWidth.TabIndex = 12;
             this.toolTip.SetToolTip(this.numericUpDownWidth, "The total width of the panel, including the border. This should match the size of" +
         " the Browser control in Obs.");
             this.numericUpDownWidth.ValueChanged += new System.EventHandler(this.controlBasic_Changed);
@@ -250,7 +250,7 @@ namespace Aquarius
             0});
             this.numericUpDownHeight.Name = "numericUpDownHeight";
             this.numericUpDownHeight.Size = new System.Drawing.Size(120, 26);
-            this.numericUpDownHeight.TabIndex = 3;
+            this.numericUpDownHeight.TabIndex = 13;
             this.toolTip.SetToolTip(this.numericUpDownHeight, "The total height of the panel, including the border. This should match the size o" +
         "f the Browser control in Obs.");
             this.numericUpDownHeight.ValueChanged += new System.EventHandler(this.controlBasic_Changed);
@@ -279,7 +279,7 @@ namespace Aquarius
             this.textBoxBackgroundColor.Location = new System.Drawing.Point(6, 49);
             this.textBoxBackgroundColor.Name = "textBoxBackgroundColor";
             this.textBoxBackgroundColor.Size = new System.Drawing.Size(93, 26);
-            this.textBoxBackgroundColor.TabIndex = 4;
+            this.textBoxBackgroundColor.TabIndex = 10;
             this.toolTip.SetToolTip(this.textBoxBackgroundColor, "The background color of the panel. Can be \'transparent\'.");
             this.textBoxBackgroundColor.TextChanged += new System.EventHandler(this.textBoxBackgroundColor_TextChanged);
             // 
@@ -290,7 +290,7 @@ namespace Aquarius
             this.buttonBackgroundColor.Location = new System.Drawing.Point(100, 49);
             this.buttonBackgroundColor.Name = "buttonBackgroundColor";
             this.buttonBackgroundColor.Size = new System.Drawing.Size(26, 26);
-            this.buttonBackgroundColor.TabIndex = 5;
+            this.buttonBackgroundColor.TabIndex = 11;
             this.buttonBackgroundColor.UseVisualStyleBackColor = false;
             this.buttonBackgroundColor.Click += new System.EventHandler(this.buttonBackgroundColor_Click);
             // 
@@ -313,7 +313,7 @@ namespace Aquarius
             this.textBoxFontColor.Location = new System.Drawing.Point(6, 105);
             this.textBoxFontColor.Name = "textBoxFontColor";
             this.textBoxFontColor.Size = new System.Drawing.Size(93, 26);
-            this.textBoxFontColor.TabIndex = 4;
+            this.textBoxFontColor.TabIndex = 14;
             this.toolTip.SetToolTip(this.textBoxFontColor, "The color to use for text in the panel.");
             this.textBoxFontColor.TextChanged += new System.EventHandler(this.textBoxFontColor_TextChanged);
             // 
@@ -324,7 +324,7 @@ namespace Aquarius
             this.buttonFontColor.Location = new System.Drawing.Point(100, 105);
             this.buttonFontColor.Name = "buttonFontColor";
             this.buttonFontColor.Size = new System.Drawing.Size(26, 26);
-            this.buttonFontColor.TabIndex = 5;
+            this.buttonFontColor.TabIndex = 15;
             this.buttonFontColor.UseVisualStyleBackColor = false;
             this.buttonFontColor.Click += new System.EventHandler(this.buttonFontColor_Click);
             // 
@@ -342,7 +342,7 @@ namespace Aquarius
             0});
             this.numericUpDownFontSize.Name = "numericUpDownFontSize";
             this.numericUpDownFontSize.Size = new System.Drawing.Size(120, 26);
-            this.numericUpDownFontSize.TabIndex = 7;
+            this.numericUpDownFontSize.TabIndex = 16;
             this.toolTip.SetToolTip(this.numericUpDownFontSize, "The font size to use for text in the panel.");
             this.numericUpDownFontSize.ValueChanged += new System.EventHandler(this.controlBasic_Changed);
             // 
@@ -376,7 +376,7 @@ namespace Aquarius
             this.textBoxBorderColor.Location = new System.Drawing.Point(6, 161);
             this.textBoxBorderColor.Name = "textBoxBorderColor";
             this.textBoxBorderColor.Size = new System.Drawing.Size(93, 26);
-            this.textBoxBorderColor.TabIndex = 4;
+            this.textBoxBorderColor.TabIndex = 18;
             this.toolTip.SetToolTip(this.textBoxBorderColor, "The color of the border around the panel.");
             this.textBoxBorderColor.TextChanged += new System.EventHandler(this.textBoxBorderColor_TextChanged);
             // 
@@ -387,7 +387,7 @@ namespace Aquarius
             this.buttonBorderColor.Location = new System.Drawing.Point(100, 161);
             this.buttonBorderColor.Name = "buttonBorderColor";
             this.buttonBorderColor.Size = new System.Drawing.Size(26, 26);
-            this.buttonBorderColor.TabIndex = 5;
+            this.buttonBorderColor.TabIndex = 19;
             this.buttonBorderColor.UseVisualStyleBackColor = false;
             this.buttonBorderColor.Click += new System.EventHandler(this.buttonBorderColor_Click);
             // 
@@ -416,7 +416,7 @@ namespace Aquarius
             0});
             this.numericUpDownBorderWidth.Name = "numericUpDownBorderWidth";
             this.numericUpDownBorderWidth.Size = new System.Drawing.Size(120, 26);
-            this.numericUpDownBorderWidth.TabIndex = 7;
+            this.numericUpDownBorderWidth.TabIndex = 20;
             this.toolTip.SetToolTip(this.numericUpDownBorderWidth, "The width of the border around the panel. Included in the Width value.");
             this.numericUpDownBorderWidth.ValueChanged += new System.EventHandler(this.controlBasic_Changed);
             // 
@@ -465,7 +465,7 @@ namespace Aquarius
             this.textBoxTwitchClientID.Name = "textBoxTwitchClientID";
             this.textBoxTwitchClientID.PasswordChar = '●';
             this.textBoxTwitchClientID.Size = new System.Drawing.Size(416, 26);
-            this.textBoxTwitchClientID.TabIndex = 2;
+            this.textBoxTwitchClientID.TabIndex = 3;
             this.toolTip.SetToolTip(this.textBoxTwitchClientID, "The Twitch Client ID associated with the above Access Token. You can get this alo" +
         "ng with the token at twitchtokengenerator.com");
             this.textBoxTwitchClientID.TextChanged += new System.EventHandler(this.controlTwitch_Changed);
@@ -487,7 +487,7 @@ namespace Aquarius
             this.comboBoxFontFamily.Location = new System.Drawing.Point(302, 105);
             this.comboBoxFontFamily.Name = "comboBoxFontFamily";
             this.comboBoxFontFamily.Size = new System.Drawing.Size(120, 28);
-            this.comboBoxFontFamily.TabIndex = 8;
+            this.comboBoxFontFamily.TabIndex = 17;
             this.toolTip.SetToolTip(this.comboBoxFontFamily, "The font family to use for text in the panel.");
             this.comboBoxFontFamily.SelectedIndexChanged += new System.EventHandler(this.controlBasic_Changed);
             // 
@@ -497,7 +497,7 @@ namespace Aquarius
             this.checkBoxRefreshOnLoad.Location = new System.Drawing.Point(6, 85);
             this.checkBoxRefreshOnLoad.Name = "checkBoxRefreshOnLoad";
             this.checkBoxRefreshOnLoad.Size = new System.Drawing.Size(331, 24);
-            this.checkBoxRefreshOnLoad.TabIndex = 8;
+            this.checkBoxRefreshOnLoad.TabIndex = 6;
             this.checkBoxRefreshOnLoad.Text = "Refresh panel immediately on browser load";
             this.toolTip.SetToolTip(this.checkBoxRefreshOnLoad, "Whether or not to retrieve and send new info to the panel as soon as the browser " +
         "loads the page.");
@@ -510,7 +510,7 @@ namespace Aquarius
             this.checkBoxRefreshOnTimer.Location = new System.Drawing.Point(6, 118);
             this.checkBoxRefreshOnTimer.Name = "checkBoxRefreshOnTimer";
             this.checkBoxRefreshOnTimer.Size = new System.Drawing.Size(277, 24);
-            this.checkBoxRefreshOnTimer.TabIndex = 8;
+            this.checkBoxRefreshOnTimer.TabIndex = 7;
             this.checkBoxRefreshOnTimer.Text = "Refresh panel every X milliseconds:";
             this.toolTip.SetToolTip(this.checkBoxRefreshOnTimer, "Whether or not to retrieve and send new info to the panel at the following timer " +
         "interval.\r\n");
@@ -531,7 +531,7 @@ namespace Aquarius
             0});
             this.numericUpDownRefreshTimerDuration.Name = "numericUpDownRefreshTimerDuration";
             this.numericUpDownRefreshTimerDuration.Size = new System.Drawing.Size(120, 26);
-            this.numericUpDownRefreshTimerDuration.TabIndex = 7;
+            this.numericUpDownRefreshTimerDuration.TabIndex = 8;
             this.numericUpDownRefreshTimerDuration.ThousandsSeparator = true;
             this.toolTip.SetToolTip(this.numericUpDownRefreshTimerDuration, "How often, in milliseconds, to retrieve and send new info to the panel if this op" +
         "tion is enabled. Note that refreshing too frequently could result in Twitch thro" +
@@ -545,7 +545,7 @@ namespace Aquarius
             this.linkLabelOpenPanelPreview.Location = new System.Drawing.Point(6, 250);
             this.linkLabelOpenPanelPreview.Name = "linkLabelOpenPanelPreview";
             this.linkLabelOpenPanelPreview.Size = new System.Drawing.Size(106, 20);
-            this.linkLabelOpenPanelPreview.TabIndex = 9;
+            this.linkLabelOpenPanelPreview.TabIndex = 24;
             this.linkLabelOpenPanelPreview.TabStop = true;
             this.linkLabelOpenPanelPreview.Text = "Open Preview";
             this.toolTip.SetToolTip(this.linkLabelOpenPanelPreview, "Opens the selected panel in your default web browser. Note that it may be rendere" +
@@ -566,7 +566,7 @@ namespace Aquarius
             0});
             this.numericUpDownDisplayDuration.Name = "numericUpDownDisplayDuration";
             this.numericUpDownDisplayDuration.Size = new System.Drawing.Size(120, 26);
-            this.numericUpDownDisplayDuration.TabIndex = 7;
+            this.numericUpDownDisplayDuration.TabIndex = 22;
             this.numericUpDownDisplayDuration.ThousandsSeparator = true;
             this.toolTip.SetToolTip(this.numericUpDownDisplayDuration, "How long (in milliseconds) to keep the panel visible. 0 means forever.");
             this.numericUpDownDisplayDuration.ValueChanged += new System.EventHandler(this.controlBasic_Changed);
@@ -585,7 +585,7 @@ namespace Aquarius
             0});
             this.numericUpDownTransitionDuration.Name = "numericUpDownTransitionDuration";
             this.numericUpDownTransitionDuration.Size = new System.Drawing.Size(120, 26);
-            this.numericUpDownTransitionDuration.TabIndex = 7;
+            this.numericUpDownTransitionDuration.TabIndex = 23;
             this.numericUpDownTransitionDuration.ThousandsSeparator = true;
             this.toolTip.SetToolTip(this.numericUpDownTransitionDuration, "How long (in milliseconds) it takes to fade the panel in or out. 0 means instant." +
         "");
@@ -605,7 +605,7 @@ namespace Aquarius
             0});
             this.numericUpDownPortNumber.Name = "numericUpDownPortNumber";
             this.numericUpDownPortNumber.Size = new System.Drawing.Size(120, 26);
-            this.numericUpDownPortNumber.TabIndex = 7;
+            this.numericUpDownPortNumber.TabIndex = 5;
             this.toolTip.SetToolTip(this.numericUpDownPortNumber, "The port number to run the web socket on. If another program on your machine is u" +
         "sing the same port number, you\'ll need to change this. Start at 8081 and go up.");
             this.numericUpDownPortNumber.ValueChanged += new System.EventHandler(this.controlOverlay_Changed);
@@ -621,7 +621,7 @@ namespace Aquarius
             this.comboBoxPanelPreview.Location = new System.Drawing.Point(6, 273);
             this.comboBoxPanelPreview.Name = "comboBoxPanelPreview";
             this.comboBoxPanelPreview.Size = new System.Drawing.Size(268, 28);
-            this.comboBoxPanelPreview.TabIndex = 8;
+            this.comboBoxPanelPreview.TabIndex = 25;
             this.toolTip.SetToolTip(this.comboBoxPanelPreview, "This will not affect anything, it\'s just an easy way for you to preview pages.");
             // 
             // textBoxTemplateDoubleActive
@@ -632,7 +632,7 @@ namespace Aquarius
             this.textBoxTemplateDoubleActive.Location = new System.Drawing.Point(6, 49);
             this.textBoxTemplateDoubleActive.Name = "textBoxTemplateDoubleActive";
             this.textBoxTemplateDoubleActive.Size = new System.Drawing.Size(416, 26);
-            this.textBoxTemplateDoubleActive.TabIndex = 2;
+            this.textBoxTemplateDoubleActive.TabIndex = 27;
             this.toolTip.SetToolTip(this.textBoxTemplateDoubleActive, "Text to display for both results when prediction status is Active.");
             this.textBoxTemplateDoubleActive.TextChanged += new System.EventHandler(this.controlBasic_Changed);
             // 
@@ -644,7 +644,7 @@ namespace Aquarius
             this.textBoxTemplateDoubleLocked.Location = new System.Drawing.Point(6, 105);
             this.textBoxTemplateDoubleLocked.Name = "textBoxTemplateDoubleLocked";
             this.textBoxTemplateDoubleLocked.Size = new System.Drawing.Size(416, 26);
-            this.textBoxTemplateDoubleLocked.TabIndex = 2;
+            this.textBoxTemplateDoubleLocked.TabIndex = 28;
             this.toolTip.SetToolTip(this.textBoxTemplateDoubleLocked, "Text to display for both results when prediction status is Locked.");
             this.textBoxTemplateDoubleLocked.TextChanged += new System.EventHandler(this.controlBasic_Changed);
             // 
@@ -656,9 +656,88 @@ namespace Aquarius
             this.textBoxTemplateDoubleCanceled.Location = new System.Drawing.Point(6, 161);
             this.textBoxTemplateDoubleCanceled.Name = "textBoxTemplateDoubleCanceled";
             this.textBoxTemplateDoubleCanceled.Size = new System.Drawing.Size(416, 26);
-            this.textBoxTemplateDoubleCanceled.TabIndex = 2;
+            this.textBoxTemplateDoubleCanceled.TabIndex = 29;
             this.toolTip.SetToolTip(this.textBoxTemplateDoubleCanceled, "Text to display for both results when prediction status is Canceled.");
             this.textBoxTemplateDoubleCanceled.TextChanged += new System.EventHandler(this.controlBasic_Changed);
+            // 
+            // textBoxTemplateSingleActive
+            // 
+            this.textBoxTemplateSingleActive.BackColor = System.Drawing.Color.Black;
+            this.textBoxTemplateSingleActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxTemplateSingleActive.ForeColor = System.Drawing.Color.White;
+            this.textBoxTemplateSingleActive.Location = new System.Drawing.Point(440, 49);
+            this.textBoxTemplateSingleActive.Name = "textBoxTemplateSingleActive";
+            this.textBoxTemplateSingleActive.Size = new System.Drawing.Size(416, 26);
+            this.textBoxTemplateSingleActive.TabIndex = 31;
+            this.toolTip.SetToolTip(this.textBoxTemplateSingleActive, "Text to display for single results when prediction status is Active.");
+            this.textBoxTemplateSingleActive.TextChanged += new System.EventHandler(this.controlBasic_Changed);
+            // 
+            // textBoxTemplateSingleResolved
+            // 
+            this.textBoxTemplateSingleResolved.BackColor = System.Drawing.Color.Black;
+            this.textBoxTemplateSingleResolved.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxTemplateSingleResolved.ForeColor = System.Drawing.Color.White;
+            this.textBoxTemplateSingleResolved.Location = new System.Drawing.Point(440, 217);
+            this.textBoxTemplateSingleResolved.Name = "textBoxTemplateSingleResolved";
+            this.textBoxTemplateSingleResolved.Size = new System.Drawing.Size(416, 26);
+            this.textBoxTemplateSingleResolved.TabIndex = 34;
+            this.toolTip.SetToolTip(this.textBoxTemplateSingleResolved, "Text to display for single results when prediction status is Resolved.\r\n");
+            this.textBoxTemplateSingleResolved.TextChanged += new System.EventHandler(this.controlBasic_Changed);
+            // 
+            // textBoxTemplateSingleLocked
+            // 
+            this.textBoxTemplateSingleLocked.BackColor = System.Drawing.Color.Black;
+            this.textBoxTemplateSingleLocked.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxTemplateSingleLocked.ForeColor = System.Drawing.Color.White;
+            this.textBoxTemplateSingleLocked.Location = new System.Drawing.Point(440, 105);
+            this.textBoxTemplateSingleLocked.Name = "textBoxTemplateSingleLocked";
+            this.textBoxTemplateSingleLocked.Size = new System.Drawing.Size(416, 26);
+            this.textBoxTemplateSingleLocked.TabIndex = 32;
+            this.toolTip.SetToolTip(this.textBoxTemplateSingleLocked, "Text to display for single results when prediction status is Locked.\r\n");
+            this.textBoxTemplateSingleLocked.TextChanged += new System.EventHandler(this.controlBasic_Changed);
+            // 
+            // textBoxTemplateDoubleResolved
+            // 
+            this.textBoxTemplateDoubleResolved.BackColor = System.Drawing.Color.Black;
+            this.textBoxTemplateDoubleResolved.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxTemplateDoubleResolved.ForeColor = System.Drawing.Color.White;
+            this.textBoxTemplateDoubleResolved.Location = new System.Drawing.Point(6, 217);
+            this.textBoxTemplateDoubleResolved.Name = "textBoxTemplateDoubleResolved";
+            this.textBoxTemplateDoubleResolved.Size = new System.Drawing.Size(416, 26);
+            this.textBoxTemplateDoubleResolved.TabIndex = 30;
+            this.toolTip.SetToolTip(this.textBoxTemplateDoubleResolved, "Text to display for both results when prediction status is Resolved.");
+            this.textBoxTemplateDoubleResolved.TextChanged += new System.EventHandler(this.controlBasic_Changed);
+            // 
+            // textBoxTemplateSingleCanceled
+            // 
+            this.textBoxTemplateSingleCanceled.BackColor = System.Drawing.Color.Black;
+            this.textBoxTemplateSingleCanceled.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxTemplateSingleCanceled.ForeColor = System.Drawing.Color.White;
+            this.textBoxTemplateSingleCanceled.Location = new System.Drawing.Point(440, 161);
+            this.textBoxTemplateSingleCanceled.Name = "textBoxTemplateSingleCanceled";
+            this.textBoxTemplateSingleCanceled.Size = new System.Drawing.Size(416, 26);
+            this.textBoxTemplateSingleCanceled.TabIndex = 33;
+            this.toolTip.SetToolTip(this.textBoxTemplateSingleCanceled, "Text to display for single results when prediction status is Canceled.\r\n");
+            this.textBoxTemplateSingleCanceled.TextChanged += new System.EventHandler(this.controlBasic_Changed);
+            // 
+            // numericUpDownBettorsToDisplay
+            // 
+            this.numericUpDownBettorsToDisplay.BackColor = System.Drawing.Color.Black;
+            this.numericUpDownBettorsToDisplay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numericUpDownBettorsToDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDownBettorsToDisplay.ForeColor = System.Drawing.Color.White;
+            this.numericUpDownBettorsToDisplay.Location = new System.Drawing.Point(302, 161);
+            this.numericUpDownBettorsToDisplay.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUpDownBettorsToDisplay.Name = "numericUpDownBettorsToDisplay";
+            this.numericUpDownBettorsToDisplay.Size = new System.Drawing.Size(120, 26);
+            this.numericUpDownBettorsToDisplay.TabIndex = 21;
+            this.numericUpDownBettorsToDisplay.ThousandsSeparator = true;
+            this.toolTip.SetToolTip(this.numericUpDownBettorsToDisplay, "How many top bettors to display, if listed in the template (5 max).");
+            this.numericUpDownBettorsToDisplay.ValueChanged += new System.EventHandler(this.controlBasic_Changed);
             // 
             // label11
             // 
@@ -685,7 +764,7 @@ namespace Aquarius
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(428, 197);
-            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Twitch Integration";
             // 
@@ -724,9 +803,20 @@ namespace Aquarius
             this.groupBox2.Location = new System.Drawing.Point(446, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(428, 356);
-            this.groupBox2.TabIndex = 10;
+            this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Panel Display";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.ForeColor = System.Drawing.Color.White;
+            this.label23.Location = new System.Drawing.Point(302, 138);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(108, 20);
+            this.label23.TabIndex = 10;
+            this.label23.Text = "Bettors Listed";
             // 
             // groupBox3
             // 
@@ -741,7 +831,7 @@ namespace Aquarius
             this.groupBox3.Location = new System.Drawing.Point(12, 215);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(428, 153);
-            this.groupBox3.TabIndex = 10;
+            this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Aquarius Settings";
             // 
@@ -774,7 +864,7 @@ namespace Aquarius
             this.groupBox4.Location = new System.Drawing.Point(12, 374);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(862, 253);
-            this.groupBox4.TabIndex = 10;
+            this.groupBox4.TabIndex = 26;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Panel Text Templates";
             // 
@@ -855,18 +945,6 @@ namespace Aquarius
             this.label18.TabIndex = 1;
             this.label18.Text = "Double, Resolved";
             // 
-            // textBoxTemplateSingleActive
-            // 
-            this.textBoxTemplateSingleActive.BackColor = System.Drawing.Color.Black;
-            this.textBoxTemplateSingleActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxTemplateSingleActive.ForeColor = System.Drawing.Color.White;
-            this.textBoxTemplateSingleActive.Location = new System.Drawing.Point(440, 49);
-            this.textBoxTemplateSingleActive.Name = "textBoxTemplateSingleActive";
-            this.textBoxTemplateSingleActive.Size = new System.Drawing.Size(416, 26);
-            this.textBoxTemplateSingleActive.TabIndex = 2;
-            this.toolTip.SetToolTip(this.textBoxTemplateSingleActive, "Text to display for single results when prediction status is Active.");
-            this.textBoxTemplateSingleActive.TextChanged += new System.EventHandler(this.controlBasic_Changed);
-            // 
             // label17
             // 
             this.label17.AutoSize = true;
@@ -877,84 +955,6 @@ namespace Aquarius
             this.label17.Size = new System.Drawing.Size(135, 20);
             this.label17.TabIndex = 1;
             this.label17.Text = "Double, Canceled";
-            // 
-            // textBoxTemplateSingleResolved
-            // 
-            this.textBoxTemplateSingleResolved.BackColor = System.Drawing.Color.Black;
-            this.textBoxTemplateSingleResolved.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxTemplateSingleResolved.ForeColor = System.Drawing.Color.White;
-            this.textBoxTemplateSingleResolved.Location = new System.Drawing.Point(440, 217);
-            this.textBoxTemplateSingleResolved.Name = "textBoxTemplateSingleResolved";
-            this.textBoxTemplateSingleResolved.Size = new System.Drawing.Size(416, 26);
-            this.textBoxTemplateSingleResolved.TabIndex = 2;
-            this.toolTip.SetToolTip(this.textBoxTemplateSingleResolved, "Text to display for single results when prediction status is Resolved.\r\n");
-            this.textBoxTemplateSingleResolved.TextChanged += new System.EventHandler(this.controlBasic_Changed);
-            // 
-            // textBoxTemplateSingleLocked
-            // 
-            this.textBoxTemplateSingleLocked.BackColor = System.Drawing.Color.Black;
-            this.textBoxTemplateSingleLocked.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxTemplateSingleLocked.ForeColor = System.Drawing.Color.White;
-            this.textBoxTemplateSingleLocked.Location = new System.Drawing.Point(440, 105);
-            this.textBoxTemplateSingleLocked.Name = "textBoxTemplateSingleLocked";
-            this.textBoxTemplateSingleLocked.Size = new System.Drawing.Size(416, 26);
-            this.textBoxTemplateSingleLocked.TabIndex = 2;
-            this.toolTip.SetToolTip(this.textBoxTemplateSingleLocked, "Text to display for single results when prediction status is Locked.\r\n");
-            this.textBoxTemplateSingleLocked.TextChanged += new System.EventHandler(this.controlBasic_Changed);
-            // 
-            // textBoxTemplateDoubleResolved
-            // 
-            this.textBoxTemplateDoubleResolved.BackColor = System.Drawing.Color.Black;
-            this.textBoxTemplateDoubleResolved.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxTemplateDoubleResolved.ForeColor = System.Drawing.Color.White;
-            this.textBoxTemplateDoubleResolved.Location = new System.Drawing.Point(6, 217);
-            this.textBoxTemplateDoubleResolved.Name = "textBoxTemplateDoubleResolved";
-            this.textBoxTemplateDoubleResolved.Size = new System.Drawing.Size(416, 26);
-            this.textBoxTemplateDoubleResolved.TabIndex = 2;
-            this.toolTip.SetToolTip(this.textBoxTemplateDoubleResolved, "Text to display for both results when prediction status is Resolved.");
-            this.textBoxTemplateDoubleResolved.TextChanged += new System.EventHandler(this.controlBasic_Changed);
-            // 
-            // textBoxTemplateSingleCanceled
-            // 
-            this.textBoxTemplateSingleCanceled.BackColor = System.Drawing.Color.Black;
-            this.textBoxTemplateSingleCanceled.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxTemplateSingleCanceled.ForeColor = System.Drawing.Color.White;
-            this.textBoxTemplateSingleCanceled.Location = new System.Drawing.Point(440, 161);
-            this.textBoxTemplateSingleCanceled.Name = "textBoxTemplateSingleCanceled";
-            this.textBoxTemplateSingleCanceled.Size = new System.Drawing.Size(416, 26);
-            this.textBoxTemplateSingleCanceled.TabIndex = 2;
-            this.toolTip.SetToolTip(this.textBoxTemplateSingleCanceled, "Text to display for single results when prediction status is Canceled.\r\n");
-            this.textBoxTemplateSingleCanceled.TextChanged += new System.EventHandler(this.controlBasic_Changed);
-            // 
-            // numericUpDownBettorsToDisplay
-            // 
-            this.numericUpDownBettorsToDisplay.BackColor = System.Drawing.Color.Black;
-            this.numericUpDownBettorsToDisplay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numericUpDownBettorsToDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownBettorsToDisplay.ForeColor = System.Drawing.Color.White;
-            this.numericUpDownBettorsToDisplay.Location = new System.Drawing.Point(302, 161);
-            this.numericUpDownBettorsToDisplay.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.numericUpDownBettorsToDisplay.Name = "numericUpDownBettorsToDisplay";
-            this.numericUpDownBettorsToDisplay.Size = new System.Drawing.Size(120, 26);
-            this.numericUpDownBettorsToDisplay.TabIndex = 11;
-            this.numericUpDownBettorsToDisplay.ThousandsSeparator = true;
-            this.toolTip.SetToolTip(this.numericUpDownBettorsToDisplay, "How many top bettors to display, if listed in the template (5 max).");
-            this.numericUpDownBettorsToDisplay.ValueChanged += new System.EventHandler(this.controlBasic_Changed);
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.ForeColor = System.Drawing.Color.White;
-            this.label23.Location = new System.Drawing.Point(302, 138);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(108, 20);
-            this.label23.TabIndex = 10;
-            this.label23.Text = "Bettors Listed";
             // 
             // FormMain
             // 
@@ -979,6 +979,7 @@ namespace Aquarius
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDisplayDuration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTransitionDuration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPortNumber)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBettorsToDisplay)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -987,7 +988,6 @@ namespace Aquarius
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBettorsToDisplay)).EndInit();
             this.ResumeLayout(false);
 
         }
